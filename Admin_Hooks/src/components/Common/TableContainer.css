@@ -1,0 +1,37 @@
+.table-no-vertical-lines table {
+  border-collapse: collapse;
+  border-right: none;
+  border-left: none;
+}
+
+.table-no-vertical-lines th,
+.table-no-vertical-lines td {
+  border: none;
+  /* padding: 0.5rem; */
+}
+
+/* .table-no-vertical-lines tr td:first-child {
+  border-right: none;
+}
+
+.table-no-vertical-lines tr th:first-child {
+  border-right: none;
+} */
+
+/* .table-no-vertical-lines tr {
+  border-bottom: 1px solid;
+} */
+
+/* .table-no-vertical-lines thead tr {
+  border-bottom: none;
+} */
+
+/* 첫 번째 행 숨기기 */
+.react-table tr:nth-child(1) th {
+  display: none;
+}
+
+/* 10,20,30 개씩 옵션 칸 */
+/* .form-select-custom {
+  width: 100px;
+} */

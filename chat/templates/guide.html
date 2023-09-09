@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatGPT Guide</title>
+</head>
+<body>
+    <h1>ChatGPT Guide</h1>
+    <div id="chatbox">
+        <div id="messages"></div>
+        <form id="chat-form">
+            {% csrf_token %}
+            <input type="text" id="message-input" autocomplete="off" placeholder="Type your message..." />
+            <button type="submit">Send</button>
+        </form>
+        <!-- hidden input 추가 -->
+        <input type="hidden" id="age-input" name="age"  value="{{ age }}" />
+        <input type="hidden" id="sex-input" name="sex"  value="{{ sex }}" />
+        <input type="hidden" id="job-input" name="job"  value="{{ job }}" />
+        <input type="hidden" id="grade-input" name="grade"  value="{{ grade }}" />
+        <input type="hidden" id="situation-input" name="situation"  value="{{ situation }}" />
+        <input type="hidden" id="subject-input" name="subject"  value="{{ subject }}" />
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Prevent CSRF token issue
+        $.ajaxSetup({
+            headers: { "X-CSRFToken": '{{ csrf_token }}' }
+        });
+        $(document).ready(function() {
+            var age = $('#age-input').val();
+            var sex = $('#sex-input').val();
+            var job = $('#job-input').val();
+            var grade = $('#grade-input').val();
+            var situation = $('#situation-input').val();
+            var subject = $('#subject-input').val();
+            $('#chat-form').submit(function(e) {
+                e.preventDefault();
+                var message = $('#message-input').val();
+                if (message.trim() !== '') {
+                    $('#messages').append('<p>You: ' + message + '</p>');
+                    $.ajax({
+                        type: 'POST',
+                        url: '/chat/guide',
+                        data: JSON.stringify({ message: message, age:age, sex:sex, job:job, grade:grade, situation:situation, subject:subject}),
+                        contentType: 'application/json',
+                        success: function(data) {
+                            $('#messages').append('<p>ChatGPT: ' + data.response + '</p>');
+                            $('#message-input').val('');
+                        },
+                        error: function(xhr, errmsg, err) {
+                            console.log(xhr.status + ': ' + xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

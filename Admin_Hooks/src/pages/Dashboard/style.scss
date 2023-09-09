@@ -1,0 +1,53 @@
+.fe-bg {
+    background-color: rgb(211, 229, 239);
+}
+  
+.be-bg {
+    background-color: rgb(232, 222, 238);
+}
+
+.ai-bg {
+    background-color: rgb(219, 237, 219);
+}
+
+.card-with-background {
+    background-image: url('./Lighthouse.jpg');
+    background-size: cover;
+    height: 96%;
+    // opacity: 0.8;
+
+    .card-body {
+        color: white;
+        padding: 4rem;
+    }
+}
+
+.chat-with-background {
+    background-color: #D9E5FF;
+    background-size: cover;
+    height: 100%;
+    .chat-body {
+        color: white;
+        padding: 4rem;
+    }
+}
+
+@font-face {
+	font-family: "BlackHanSans";
+	src: url(./../../assets/fonts/BlackHanSans-Regular.ttf);
+}
+
+@font-face {
+	font-family: "DoHyeon-Regular";
+	src: url(./../../assets/fonts/DoHyeon-Regular.ttf);
+}
+
+.image {
+    background-image: url("./chaticon1.png");
+    background-size: cover;
+}
+
+@font-face {
+	font-family: "NanumGothic-ExtraBold";
+	src: url(./../../assets/fonts/NanumGothic-ExtraBold.ttf);
+}

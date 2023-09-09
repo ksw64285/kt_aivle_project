@@ -1,0 +1,57 @@
+<html><body>
+    <h1>Board Detail</h1>
+    <a href="{% url 'blog-list' %}">게시글 리스트</a>
+    <hr>
+    {% if request.user.is_superuser == False %}
+    <a href="{% url 'blog-edit' pk=data.id %}">수정하기</a>
+    <form id="delete-form" method="POST" action="{% url 'blog-delete' data.id %}">
+        {% csrf_token %}
+        <button type="button" onclick="deleteBlog()">삭제하기</button>
+    </form>
+    <hr>
+    {% endif %}
+    <ul>
+        <li>Title: {{ data.title }}</li>
+        <li>User: {{ data.user }}</li> 
+        <li>Body: {{ data.body }}</li>
+        {% if data.file %}
+            <li>file: <a href="{{ MEDIA_URL}}{{ data.file }}" download="{{ data.file}}" target="_blank">{{ data.file }}</a></li>
+        {% endif %}
+        <li>Created at: {{ data.created_at }}</li>
+        {% if data.answer%}
+        <li>Answer: {{data.answer}}</li>
+        <li>Answered at: {{data.answered_at}}</li>
+        {% endif %}
+    </ul>
+    {% if request.user.is_superuser %}
+        <form method="post" action="{% url 'add-comment' pk=data.id %}">
+            {% csrf_token %}
+            <textarea name="comment" rows="4" cols="50"></textarea>
+            <button type="submit">댓글 작성</button>
+        </form>
+    {% endif %}
+    <script>
+        function editBlog() {
+            window.location.href = "{% url 'blog-edit' data.id %}";
+        }
+
+        function deleteBlog() {
+            if (confirm('게시글을 삭제하시겠습니까?')) {
+                var form = document.getElementById('delete-form');
+                var xhr = new XMLHttpRequest();
+                xhr.open('DELETE', form.action);
+                xhr.setRequestHeader('X-CSRFToken', form.querySelector('input[name="csrfmiddlewaretoken"]').value);
+                xhr.onload = function() {
+                    if (xhr.status === 204) {
+                        // 삭제 성공 시 원하는 동작을 수행하세요.
+                        window.location.href = "{% url 'blog-list' %}";
+                    } else {
+                        // 삭제 실패 시 에러 처리를 수행하세요.
+                        console.error('게시글 삭제 실패');
+                    }
+                };
+                xhr.send();
+            }
+        }
+    </script>
+</body></html>

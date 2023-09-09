@@ -1,0 +1,11 @@
+<html><body>
+    <h1>Board</h1>
+    <a href="{% url 'blog-create' %}">게시글 작성</a>
+    <ul>
+    {% for d in data %}
+        <li>id: {{ d.id }}</li>
+        <li><a href="{% url 'blog-detail' d.id %}">Title: {{ d.title }}</a></li>
+        <li>created_at: {{ d.created_at }}</li> 
+    {% endfor %}
+    </ul>
+</body></html>

@@ -1,0 +1,16 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+      <label for="title">제목:</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+      <label for="body">본문:</label>
+      <textarea id="body" name="body" required></textarea>
+    </div>
+    <div>
+      <label for="file">파일:</label>
+      <input type="file" id="file" name="file">
+    </div>
+    <button type="submit">작성</button>
+  </form>
